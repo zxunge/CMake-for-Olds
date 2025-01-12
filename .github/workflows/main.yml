@@ -17,12 +17,28 @@ jobs:
          update: true
          location: D:\
          msystem: mingw32
-         install: >-         
-           git
+         install: >-
            base-devel 
-           mingw-w64-i686-gcc
+           mingw-w64-i686-toolchain
            mingw-w64-i686-openssl
+           mingw-w64-i686-zlib
            mingw-w64-i686-python-sphinx
+           mingw-w64-i686-bzip2
+           mingw-w64-i686-xz
+           mingw-w64-i686-zstd
+           mingw-w64-i686-cppdap
+           mingw-w64-i686-python
+           mingw-w64-i686-curl
+           mingw-w64-i686-expat
+           mingw-w64-i686-jsoncpp
+           mingw-w64-i686-libarchive
+           mingw-w64-i686-libuv
+           mingw-w64-i686-ninja
+           mingw-w64-i686-pkgconf
+           mingw-w64-i686-rhash
+           mingw-w64-i686-fc
+           mingw-w64-i686-ncurses
+           
 
       - name: Build CMake
         shell: msys2 {0}
@@ -34,7 +50,20 @@ jobs:
           tar -zxf cmake-${CMAKE_VERSION}.tar.gz
           mkdir cmake
           mkdir build && cd build
-          ../cmake-${CMAKE_VERSION}/bootstrap --prefix=../cmake && make -j$(nproc) && make install
+          ../cmake-${CMAKE_VERSION}/bootstrap     \
+              --prefix=../cmake                   \
+              --generator="Unix Makefiles"        \
+              --parallel=$(nproc)                 \
+              --system-libs                       \
+              --datadir=share/cmake               \
+              --docdir=share/doc/cmake            \
+              --mandir=share/man                  \
+              --infodir=share/info                \
+              --sphinx-info                       \
+              --sphinx-man                        \
+              --sphinx-html                       \
+              --sphinx-qthelp                     \
+              && make -j$(nproc) && make install
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
