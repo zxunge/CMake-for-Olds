@@ -38,8 +38,8 @@ jobs:
            mingw-w64-i686-rhash
            mingw-w64-i686-fc
            mingw-w64-i686-ncurses
-           mingw-w64-i686-qt6-base
-           mingw-w64-i686-qt6-tools
+           mingw-w64-i686-qt5-base
+           mingw-w64-i686-qt5-tools
            
 
       - name: Build CMake
