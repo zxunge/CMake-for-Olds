@@ -58,7 +58,6 @@ jobs:
               --datadir=share/cmake               \
               --docdir=share/doc/cmake            \
               --mandir=share/man                  \
-              --infodir=share/info                \
               --sphinx-info                       \
               --sphinx-man                        \
               --sphinx-html                       \
