@@ -21,6 +21,8 @@ jobs:
            git
            base-devel 
            mingw-w64-i686-gcc
+           mingw-w64-i686-openssl
+           mingw-w64-i686-python-sphinx
 
       - name: Build CMake
         shell: msys2 {0}
