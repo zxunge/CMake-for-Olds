@@ -28,10 +28,10 @@ jobs:
         run: |
           CMAKE_VERSION=3.31.4
           
-          wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz
+          wget -q https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz
           tar -zxf cmake-${CMAKE_VERSION}.tar.gz
           mkdir build && cd build
-          ../cmake-${CMAKE_VERSION}/bootstrap && make
+          ../cmake-${CMAKE_VERSION}/bootstrap && make -j$(nproc)
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
