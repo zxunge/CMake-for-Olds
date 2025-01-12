@@ -22,7 +22,7 @@ jobs:
            base-devel 
            mingw-w64-i686-gcc
 
-      - name: Build CodeLite
+      - name: Build CMake
         shell: msys2 {0}
         id: build
         run: |
