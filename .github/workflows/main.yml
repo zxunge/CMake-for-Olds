@@ -70,4 +70,4 @@ jobs:
         with:
           name: cmake
           path: cmake
-          compress-level: 9
+          compression-level: 9
