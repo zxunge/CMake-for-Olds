@@ -68,6 +68,7 @@ jobs:
               -DCMAKE_MAN_DIR=share/man               \
               -DCMAKE_INFO_DIR=share/info             \
               -DCMAKE_USE_SYSTEM_LIBRARIES=ON         \
+              -DCMAKE_BUILD_TYPE=Release              \
               -DBUILD_TESTING=OFF                     \
               && cmake --build . && cmake --install .
 
