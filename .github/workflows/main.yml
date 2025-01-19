@@ -20,6 +20,7 @@ jobs:
          install: >-
            base-devel 
            mingw-w64-i686-toolchain
+           mingw-w64-i686-gcmake
            mingw-w64-i686-openssl
            mingw-w64-i686-zlib
            mingw-w64-i686-python-sphinx
@@ -52,21 +53,23 @@ jobs:
           tar -zxf cmake-${CMAKE_VERSION}.tar.gz
           mkdir cmake
           mkdir build && cd build
-          ../cmake-${CMAKE_VERSION}/bootstrap     \
-              --prefix=../cmake                   \
-              --generator="Unix Makefiles"        \
-              --parallel=$(nproc)                 \
-              --system-libs                       \
-              --datadir=share/cmake               \
-              --docdir=share/doc/cmake            \
-              --mandir=share/man                  \
-              --sphinx-info                       \
-              --sphinx-man                        \
-              --sphinx-html                       \
-              --sphinx-qthelp                     \
-              && make -j$(nproc) && make install
-
-          mv ../cmake/info ../cmake/share/info
+          cmake ../cmake-${CMAKE_VERSION}             \
+              -Wno-dev                                \
+              -DSPHINX_HTML=ON                        \
+              -DSPHINX_MAN=ON                         \
+              -DSPHINX_QTHELP=ON                      \
+              -DBUILD_QtDialog=ON                     \
+              -DBUILD_CursesDialog=ON                 \
+              -DPython_EXECUTABLE=/mingw32/bin/python \
+              -DCMAKE_INSTALL_PREFIX=../cmake         \
+              -DCMake_INSTALL_COMPONENTS=ON           \
+              -DCMAKE_DATA_DIR=share/cmake            \
+              -DCMAKE_DOC_DIR=share/doc/cmake         \
+              -DCMAKE_MAN_DIR=share/man               \
+              -DCMAKE_INFO_DIR=share/info             \
+              -DCMAKE_USE_SYSTEM_LIBRARIES=ON         \
+              -DBUILD_TESTING=OFF                     \
+              && cmake --build . && cmake --install .
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
